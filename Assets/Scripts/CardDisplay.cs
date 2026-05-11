@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CardDisplay : MonoBehaviour
+public class CardDisplay : MonoBehaviour, IPointerClickHandler
 {
     [Serializable]
     public struct RaritySprite
@@ -19,6 +19,7 @@ public class CardDisplay : MonoBehaviour
     private Dictionary<Image, Color> originalColors = new Dictionary<Image, Color>();
     private Dictionary<TextMeshProUGUI, Color> originalTextColors = new Dictionary<TextMeshProUGUI, Color>(); // NEU
     private bool colorsStored = false;
+    private InspectManager inspectManager;
 
     public CardData cardData; // Hier ziehst du dein ScriptableObject rein
     public bool isOwned = false;
@@ -49,14 +50,11 @@ public class CardDisplay : MonoBehaviour
 
     // Ersetze Awake und OnEnable durch diesen Block:
 
-    private void Awake()
-    {
-        // Wir weisen die Buttons hier sicherheitshalber noch einmal hart zu
-        SetupButtons();
-    }
 
     private void Start()
     {
+        inspectManager = FindObjectOfType<InspectManager>();
+
         if (cardData != null) UpdateCardUI();
 
         // Check, ob wir in der Collection sind
@@ -83,46 +81,18 @@ public class CardDisplay : MonoBehaviour
         }
     }
 
-    // Wir machen eine extra Methode daraus, die wir auch von außen aufrufen können
-    public void SetupButtons()
-    {
-        if (cardCover != null)
-        {
-            Button cb = cardCover.GetComponent<Button>();
-            if (cb != null)
-            {
-                cb.onClick.RemoveAllListeners();
-                cb.onClick.AddListener(HandleCoverClick);
-                cb.navigation = new Navigation { mode = Navigation.Mode.None };
-            }
-        }
 
-        Button mainBtn = GetComponent<Button>();
-        if (mainBtn != null)
-        {
-            mainBtn.onClick.RemoveAllListeners();
-            mainBtn.onClick.AddListener(OnCardClicked);
-            mainBtn.navigation = new Navigation { mode = Navigation.Mode.None };
-        }
-    }
-
-    // 2. Optimiere OnPointerClick, um das "Durchschlagen" zu verhindern
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Karte geklickt: " + gameObject.name);
+
         if (cardCover != null && cardCover.activeSelf)
         {
-            // Wir prüfen, ob das getroffene Objekt das Cover ist ODER ein Kind davon
-            if (eventData.pointerCurrentRaycast.gameObject == cardCover ||
-                eventData.pointerCurrentRaycast.gameObject.transform.IsChildOf(cardCover.transform))
-            {
-                HandleCoverClick();
-                eventData.Use(); // STOPPT das Event hier
-            }
+            HandleCoverClick();
         }
         else
         {
             OnCardClicked();
-            eventData.Use();
         }
     }
 
@@ -309,8 +279,7 @@ public class CardDisplay : MonoBehaviour
         }
         else if (sceneName != "CardOpening")
         {
-            InspectManager inspect = FindObjectOfType<InspectManager>();
-            if (inspect != null) inspect.OpenInspect(cardData);
+            if (inspectManager != null) inspectManager.OpenInspect(cardData);
         }
     }
 }

@@ -124,8 +124,6 @@ public class CollectionManager : MonoBehaviour
             int amount = InventoryManager.Instance.GetCardCount(data);
             display.SetOwnedStatus(amount);
 
-            // NEU: Hier zwingen wir die Karte, ihre Buttons und das Cover zu prüfen
-            display.SetupButtons();
             // Sicherstellen, dass das Cover in der Collection aus ist:
             if (display.cardCover != null) display.cardCover.SetActive(false);
         }
