@@ -106,47 +106,37 @@ public class CardDisplay : MonoBehaviour
         }
     }
 
-    // Diese Methode wird von Unity aufgerufen, SOBALD die Maus losgelassen wird
-    // völlig ohne Fokus- oder Navigations-Probleme
+    // 2. Optimiere OnPointerClick, um das "Durchschlagen" zu verhindern
     public void OnPointerClick(PointerEventData eventData)
     {
-        // 1. Prüfen, ob wir überhaupt ein Cover haben und ob es aktiv ist
         if (cardCover != null && cardCover.activeSelf)
         {
-            // 2. Wir prüfen, ob das getroffene Objekt wirklich das Cover ist
-            if (eventData.pointerCurrentRaycast.gameObject == cardCover)
+            // Wir prüfen, ob das getroffene Objekt das Cover ist ODER ein Kind davon
+            if (eventData.pointerCurrentRaycast.gameObject == cardCover ||
+                eventData.pointerCurrentRaycast.gameObject.transform.IsChildOf(cardCover.transform))
             {
-                Debug.Log("Cover-Treffer auf: " + gameObject.name);
-                cardCover.SetActive(false);
-
-                // 3. WICHTIG: Das Event als "benutzt" markieren!
-                // Das verhindert, dass der Klick 5-mal durch die Hierarchie geistert.
-                eventData.Use();
-
-                if (EventSystem.current != null)
-                    EventSystem.current.SetSelectedGameObject(null);
+                HandleCoverClick();
+                eventData.Use(); // STOPPT das Event hier
             }
         }
         else
         {
-            // Logik für die aufgedeckte Karte (Inspect)
             OnCardClicked();
             eventData.Use();
         }
     }
 
+    // 3. HandleCoverClick aufräumen
     public void HandleCoverClick()
     {
-        // Falls das Cover schon weg ist, gar nichts tun (verhindert Doppel-Fire)
         if (cardCover == null || !cardCover.activeSelf) return;
 
-        Debug.Log("Cover wurde gelöscht: " + gameObject.name);
         cardCover.SetActive(false);
+        Debug.Log("Cover erfolgreich deaktiviert auf: " + gameObject.name);
 
-        // WICHTIG: Fokus sofort löschen
-        if (UnityEngine.EventSystems.EventSystem.current != null)
+        if (EventSystem.current != null)
         {
-            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 
