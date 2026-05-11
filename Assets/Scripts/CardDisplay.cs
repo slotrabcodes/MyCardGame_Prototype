@@ -92,16 +92,16 @@ public class CardDisplay : MonoBehaviour
 
     public void HandleCoverClick()
     {
-        if (cardCover != null)
+        // Falls das Cover schon weg ist, gar nichts tun (verhindert Doppel-Fire)
+        if (cardCover == null || !cardCover.activeSelf) return;
+
+        Debug.Log("Cover wurde gelöscht: " + gameObject.name);
+        cardCover.SetActive(false);
+
+        // WICHTIG: Fokus sofort löschen
+        if (UnityEngine.EventSystems.EventSystem.current != null)
         {
-            cardCover.SetActive(false);
-
-            // DIESE ZEILE HINZUFÜGEN:
-            // Sie zwingt Unity, den Fokus sofort zu vergessen, 
-            // damit die nächste Karte nicht "denkt", sie sei noch nicht dran.
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
-
-            Debug.Log("Cover gelöscht, Fokus zurückgesetzt!");
         }
     }
 
@@ -272,7 +272,7 @@ public class CardDisplay : MonoBehaviour
         {
             if (DeckBuilder.Instance != null) DeckBuilder.Instance.AddCardToDeck(cardData);
         }
-        else
+        else if (sceneName != "CardOpening")
         {
             InspectManager inspect = FindObjectOfType<InspectManager>();
             if (inspect != null) inspect.OpenInspect(cardData);
