@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4020476046993752988, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: hideCountLabel
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7172311884858366097, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: m_Name
@@ -480,7 +480,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4020476046993752988, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: hideCountLabel
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7172311884858366097, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: m_Name
@@ -612,7 +612,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4020476046993752988, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: hideCountLabel
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7172311884858366097, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: m_Name
@@ -1458,6 +1458,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card1
       objectReference: {fileID: 0}
+    - target: {fileID: 8071362636050678480, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071362636050678480, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071362636050678480, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 118.26999
+      objectReference: {fileID: 0}
     - target: {fileID: 9017194873544233975, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1812,7 +1824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.8509804, g: 0.78039217, b: 0.63529414, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1931,13 +1943,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1706445736}
-  - {fileID: 587879535}
-  - {fileID: 2077443972}
   - {fileID: 990907210}
   - {fileID: 1413430725}
   - {fileID: 1930451130}
   - {fileID: 398838676}
   - {fileID: 1125285697}
+  - {fileID: 587879535}
+  - {fileID: 2077443972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2484,7 +2496,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4020476046993752988, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: hideCountLabel
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7172311884858366097, guid: bed4d94abcf54ef459e69ca009992dca, type: 3}
       propertyPath: m_Name
@@ -2616,7 +2628,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2077443972}
   - component: {fileID: 2077443974}
-  - component: {fileID: 2077443973}
   m_Layer: 5
   m_Name: CardOpeningPanel
   m_TagString: Untagged
@@ -2644,36 +2655,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2077443973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2077443971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &2077443974
 CanvasRenderer:
   m_ObjectHideFlags: 0

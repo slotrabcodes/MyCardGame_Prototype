@@ -67,6 +67,22 @@ public class CardDisplay : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            PointerEventData eventData = new PointerEventData(EventSystem.current);
+            eventData.position = Input.mousePosition;
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
+
+            foreach (var result in results)
+            {
+                Debug.Log("Maus trifft: " + result.gameObject.name + " auf Layer: " + result.gameObject.layer);
+            }
+        }
+    }
+
     // Wir machen eine extra Methode daraus, die wir auch von außen aufrufen können
     public void SetupButtons()
     {
@@ -87,6 +103,35 @@ public class CardDisplay : MonoBehaviour
             mainBtn.onClick.RemoveAllListeners();
             mainBtn.onClick.AddListener(OnCardClicked);
             mainBtn.navigation = new Navigation { mode = Navigation.Mode.None };
+        }
+    }
+
+    // Diese Methode wird von Unity aufgerufen, SOBALD die Maus losgelassen wird
+    // völlig ohne Fokus- oder Navigations-Probleme
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // 1. Prüfen, ob wir überhaupt ein Cover haben und ob es aktiv ist
+        if (cardCover != null && cardCover.activeSelf)
+        {
+            // 2. Wir prüfen, ob das getroffene Objekt wirklich das Cover ist
+            if (eventData.pointerCurrentRaycast.gameObject == cardCover)
+            {
+                Debug.Log("Cover-Treffer auf: " + gameObject.name);
+                cardCover.SetActive(false);
+
+                // 3. WICHTIG: Das Event als "benutzt" markieren!
+                // Das verhindert, dass der Klick 5-mal durch die Hierarchie geistert.
+                eventData.Use();
+
+                if (EventSystem.current != null)
+                    EventSystem.current.SetSelectedGameObject(null);
+            }
+        }
+        else
+        {
+            // Logik für die aufgedeckte Karte (Inspect)
+            OnCardClicked();
+            eventData.Use();
         }
     }
 
