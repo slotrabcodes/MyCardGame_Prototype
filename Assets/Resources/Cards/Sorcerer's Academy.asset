@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8535ae5cb9a619468e2f9a75067f60b, type: 3}
+  m_Name: Sorcerer's Academy
+  m_EditorClassIdentifier: 
+  cardId: 15
+  cardCost: 2
+  cardName: Sorcerer's Academy
+  cardType: 2
+  rarity: 3
+  artwork: {fileID: 21300000, guid: 18827d6c0b829484882694adcf7dd7c2, type: 3}
+  fullArtwork: {fileID: 21300000, guid: 18827d6c0b829484882694adcf7dd7c2, type: 3}
+  attack: 0
+  health: 0
+  subclass: 4
+  description: Your spells cost 1 less. Draw a spell.
+  loreText: 'Of the many brave who take on the long journey to the north, only a
+    handful prove their magical talent and may become established members of the
+    academy. '

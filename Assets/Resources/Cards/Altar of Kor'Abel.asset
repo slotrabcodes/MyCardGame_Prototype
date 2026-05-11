@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8535ae5cb9a619468e2f9a75067f60b, type: 3}
+  m_Name: Altar of Kor'Abel
+  m_EditorClassIdentifier: 
+  cardId: 17
+  cardCost: 4
+  cardName: Altar of Kor'Abel
+  cardType: 2
+  rarity: 1
+  artwork: {fileID: 21300000, guid: bba136b978a6bb942a239f0e269a0a5b, type: 3}
+  fullArtwork: {fileID: 21300000, guid: bba136b978a6bb942a239f0e269a0a5b, type: 3}
+  attack: 0
+  health: 0
+  subclass: 7
+  description: Lose 1 health. Give a unit in your hand +2/0
+  loreText: 'The people of Woodvale are still not sure who built the altar and what
+    it''s purpose is.
+
+
+    Some habitants report hearing screams and seeing smoke
+    coming from the altar at night...'

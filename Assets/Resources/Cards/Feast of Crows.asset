@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8535ae5cb9a619468e2f9a75067f60b, type: 3}
+  m_Name: Feast of Crows
+  m_EditorClassIdentifier: 
+  cardId: 19
+  cardCost: 3
+  cardName: Feast of Crows
+  cardType: 1
+  rarity: 2
+  artwork: {fileID: 21300000, guid: 859cecf8b078fb743a9753075b6e2118, type: 3}
+  fullArtwork: {fileID: 21300000, guid: 859cecf8b078fb743a9753075b6e2118, type: 3}
+  attack: 0
+  health: 0
+  subclass: 3
+  description: Deal 4 damage to a unit. If this kills the unit, restore 4 health
+  loreText: "Crows are incredibly smart. \n\nSo smart in fact, they will not pass
+    up a free meal. "

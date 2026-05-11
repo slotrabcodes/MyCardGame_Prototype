@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8535ae5cb9a619468e2f9a75067f60b, type: 3}
+  m_Name: Flicker
+  m_EditorClassIdentifier: 
+  cardId: 13
+  cardCost: 1
+  cardName: Flicker
+  cardType: 1
+  rarity: 0
+  artwork: {fileID: 21300000, guid: 364f35b9ecd894a4dab851014e54654d, type: 3}
+  fullArtwork: {fileID: 21300000, guid: 364f35b9ecd894a4dab851014e54654d, type: 3}
+  attack: 0
+  health: 0
+  subclass: 8
+  description: Deal 1 damage to 2 enemy units.
+  loreText: '"Remember, this is only the beginning of your journey young apprentice."'
