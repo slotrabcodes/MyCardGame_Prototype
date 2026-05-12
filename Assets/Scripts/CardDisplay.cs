@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic; // Wichtig für Dictionary
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CardDisplay : MonoBehaviour, IPointerClickHandler
+public class CardDisplay : MonoBehaviour
 {
     [Serializable]
     public struct RaritySprite
@@ -55,6 +56,8 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
     {
         inspectManager = FindObjectOfType<InspectManager>();
 
+        Debug.Log("Start im CardDisplay, InspectManager: " + inspectManager);
+
         if (cardData != null) UpdateCardUI();
 
         // Check, ob wir in der Collection sind
@@ -78,35 +81,6 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
             {
                 Debug.Log("Maus trifft: " + result.gameObject.name + " auf Layer: " + result.gameObject.layer);
             }
-        }
-    }
-
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("Karte geklickt: " + gameObject.name);
-
-        if (cardCover != null && cardCover.activeSelf)
-        {
-            HandleCoverClick();
-        }
-        else
-        {
-            OnCardClicked();
-        }
-    }
-
-    // 3. HandleCoverClick aufräumen
-    public void HandleCoverClick()
-    {
-        if (cardCover == null || !cardCover.activeSelf) return;
-
-        cardCover.SetActive(false);
-        Debug.Log("Cover erfolgreich deaktiviert auf: " + gameObject.name);
-
-        if (EventSystem.current != null)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 
@@ -214,17 +188,19 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
             }
 
             // 4. Spezialfall Artwork: Falls es nicht im Dictionary gelandet ist
+
             if (artworkImage != null && !originalColors.ContainsKey(artworkImage))
             {
                 artworkImage.color = filter;
             }
 
             // 5. Canvas Group Transparenz
-            if (canvasGroup != null)
-                canvasGroup.alpha = owned ? 1f : 0.7f;
+            // if (canvasGroup != null)
+            //    canvasGroup.alpha = owned ? 1f : 0.7f;
 
             // 6. Texte filtern (NEU)
             // Wenn nicht im Besitz, machen wir die Texte etwas dunkler (z.B. 70% der Originalfarbe)
+
             Color textFilter = owned ? Color.white : new Color(0.5f, 0.5f, 0.5f, 1f);
 
             foreach (var entry in originalTextColors)
@@ -272,14 +248,35 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
 
     public void OnCardClicked()
     {
+        Debug.Log("In OnCardClicked");
+
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "DeckBuilder")
         {
+            Debug.Log("OnCardClicked im DeckBuilder");
+
             if (DeckBuilder.Instance != null) DeckBuilder.Instance.AddCardToDeck(cardData);
         }
-        else if (sceneName != "CardOpening")
+        else if (sceneName == "CardOpening")
         {
-            if (inspectManager != null) inspectManager.OpenInspect(cardData);
+            Debug.Log("OnCardClicked im CardOpening");
+
+            if (cardCover != null && cardCover.activeSelf)
+            {
+                cardCover.SetActive(false);
+                Debug.Log("CardCover deaktiviert.");
+            }
+            else           
+            {
+                inspectManager.OpenInspect(cardData);
+                Debug.Log("Karte inspected");
+            }            
+        }
+        else if (sceneName == "CardCollection")
+        {
+            Debug.Log("OnCardClicked in Collection");
+
+            inspectManager.OpenInspect(cardData);
         }
     }
 }
