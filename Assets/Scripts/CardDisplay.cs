@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CardDisplay : MonoBehaviour
+public class CardDisplay : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
     [Serializable]
     public struct RaritySprite
@@ -49,7 +49,13 @@ public class CardDisplay : MonoBehaviour
     [Header("Reveal Settings")]
     public GameObject cardCover; // Ziehe hier im Prefab-Inspector das CardCover rein
 
-    // Ersetze Awake und OnEnable durch diesen Block:
+    [Header("Hover Effects")]
+    public Image hoverGlowImage; // Im Inspector das neue Glow-Objekt zuweisen
+
+    [Header("Glow Settings")]
+    public float pulseSpeed = 2f;      // Wie schnell soll es pulsieren?
+    public float minAlpha = 0.4f;      // Minimale Sichtbarkeit
+    public float maxAlpha = 1.0f;      // Maximale Sichtbarkeit
 
 
     private void Start()
@@ -79,6 +85,53 @@ public class CardDisplay : MonoBehaviour
             {
                 Debug.Log("Maus trifft: " + result.gameObject.name + " auf Layer: " + result.gameObject.layer);
             }
+        }
+
+        // Wir prüfen, ob der Glow gerade aktiv ist
+        if (hoverGlowImage != null && hoverGlowImage.gameObject.activeSelf)
+        {
+            // Berechne den pulsierenden Alpha-Wert
+            // Mathf.PingPong liefert einen Wert zwischen 0 und 1
+            float pingPong = Mathf.PingPong(Time.time * pulseSpeed, 1f);
+
+            // Wir rechnen das auf unseren Bereich (minAlpha bis maxAlpha) um
+            float finalAlpha = Mathf.Lerp(minAlpha, maxAlpha, pingPong);
+
+            // Farbe des Glows holen, Alpha anpassen und zurückschreiben
+            Color c = hoverGlowImage.color;
+            c.a = finalAlpha;
+            hoverGlowImage.color = c;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // Nur wenn das Cover noch aktiv ist (Pack Opening Phase)
+        if (cardCover != null && cardCover.activeSelf && hoverGlowImage != null)
+        {
+            hoverGlowImage.gameObject.SetActive(true);
+            hoverGlowImage.color = GetRarityColor(cardData.rarity);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (hoverGlowImage != null)
+            hoverGlowImage.gameObject.SetActive(false);
+    }
+
+    // Hilfsmethode für die Farben
+    private Color GetRarityColor(Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Rarity.Common: return Color.white;
+            case Rarity.Uncommon: return Color.green;
+            case Rarity.Rare: return Color.blue;
+            case Rarity.Epic: return new Color(0.6f, 0.2f, 0.8f); // Lila
+            case Rarity.Legendary: return new Color(1f, 0.5f, 0f); // Orange
+            case Rarity.Heavenly: return Color.cyan;
+            default: return Color.white;
         }
     }
 
@@ -263,6 +316,7 @@ public class CardDisplay : MonoBehaviour
             if (cardCover != null && cardCover.activeSelf)
             {
                 cardCover.SetActive(false);
+                hoverGlowImage.gameObject.SetActive(false); // Hover-Glow ebenfalls deaktivieren    
                 Debug.Log("CardCover deaktiviert.");
             }
             else           

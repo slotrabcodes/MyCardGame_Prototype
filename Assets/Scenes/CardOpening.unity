@@ -854,6 +854,7 @@ GameObject:
   - component: {fileID: 903311156}
   - component: {fileID: 903311158}
   - component: {fileID: 903311159}
+  - component: {fileID: 903311160}
   - component: {fileID: 903311157}
   m_Layer: 5
   m_Name: PackToOpen
@@ -931,6 +932,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f8e30aac192524b9c0924f1888cfab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &903311160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903311155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e4a822e06a01b4494039f23ed4779d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.1
+  speed: 10
 --- !u!1 &990907209
 GameObject:
   m_ObjectHideFlags: 0

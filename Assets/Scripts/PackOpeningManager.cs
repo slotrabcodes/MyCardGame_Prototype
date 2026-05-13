@@ -92,8 +92,6 @@ public class PackOpeningManager : MonoBehaviour, IPointerClickHandler
                     slot.cardCover.SetActive(true);
                 }
             }
-
-            ShowCardPack();
         }
     }
 
@@ -132,6 +130,7 @@ public class PackOpeningManager : MonoBehaviour, IPointerClickHandler
         if (allCardsRevealed)
         {
             openingPanel.SetActive(false);
+            ShowCardPack(); // Zeige das Pack-Panel wieder, falls noch Packs übrig sind
         }
         else
         {
