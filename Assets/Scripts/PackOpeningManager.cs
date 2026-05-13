@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PackOpeningManager : MonoBehaviour
+public class PackOpeningManager : MonoBehaviour, IPointerClickHandler
 {
     public TextMeshProUGUI packCounterDisplay;
     public Button buyButton; // In "BuyButton" im Inspector umbenannt oder beibehalten
@@ -49,6 +49,16 @@ public class PackOpeningManager : MonoBehaviour
         packPanel.SetActive(InventoryManager.Instance.ownedPacks > 0);
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // Prüfen, ob es ein Doppelklick war
+        if (eventData.clickCount == 2)
+        {
+            Debug.Log("Doppelklick auf Pack registriert!");
+
+            OpenPack();
+        }
+    }
 
     public void OpenPack()
     {

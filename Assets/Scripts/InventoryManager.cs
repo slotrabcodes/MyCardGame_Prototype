@@ -86,7 +86,7 @@ public class InventoryManager : MonoBehaviour
         // 1. Collection speichern (wie bisher)
         List<string> colNames = new List<string>();
         foreach (CardData card in playerCollection) colNames.Add(card.name);
-        PlayerPrefs.SetString("Collection", string.Join(",", colNames));
+        PlayerPrefs.SetString("Collection", string.Join(";", colNames));
 
         // 2. Decks speichern
         // Wir speichern: DeckName:Karte1,Karte2|DeckName2:Karte1,Karte2
@@ -97,7 +97,7 @@ public class InventoryManager : MonoBehaviour
             List<string> cNames = new List<string>();
             foreach (CardData c in deck.cards) cNames.Add(c.name);
 
-            string fullDeckString = dName + ":" + string.Join(",", cNames);
+            string fullDeckString = dName + ":" + string.Join(";", cNames);
             deckStrings.Add(fullDeckString);
         }
         PlayerPrefs.SetString("Decks", string.Join("|", deckStrings));
@@ -116,7 +116,7 @@ public class InventoryManager : MonoBehaviour
         playerCollection.Clear();
         if (!string.IsNullOrEmpty(collectionString))
         {
-            foreach (string cName in collectionString.Split(','))
+            foreach (string cName in collectionString.Split(';'))
             {
                 if (string.IsNullOrEmpty(cName)) continue;
                 CardData card = Resources.Load<CardData>("Cards/" + cName);
@@ -141,7 +141,7 @@ public class InventoryManager : MonoBehaviour
                 // Karten des Decks laden
                 if (splitNameAndCards.Length > 1 && !string.IsNullOrEmpty(splitNameAndCards[1]))
                 {
-                    string[] cardNames = splitNameAndCards[1].Split(',');
+                    string[] cardNames = splitNameAndCards[1].Split(';');
                     foreach (string cName in cardNames)
                     {
                         CardData card = Resources.Load<CardData>("Cards/" + cName);
