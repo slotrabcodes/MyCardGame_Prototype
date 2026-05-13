@@ -248,6 +248,7 @@ public class CardDisplay : MonoBehaviour
 
     public void OnCardClicked()
     {
+
         Debug.Log("In OnCardClicked");
 
         string sceneName = SceneManager.GetActiveScene().name;
@@ -265,6 +266,8 @@ public class CardDisplay : MonoBehaviour
             {
                 cardCover.SetActive(false);
                 Debug.Log("CardCover deaktiviert.");
+                InventoryManager.Instance.AddCardToCollection(cardData);
+                InventoryManager.Instance.SaveGame(); // Speichern nach dem Hinzufügen der Karte
             }
             else           
             {

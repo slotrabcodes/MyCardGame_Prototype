@@ -1995,6 +1995,7 @@ MonoBehaviour:
   - rarity: 5
     sprite: {fileID: 21300000, guid: 93bf4bb8954543d4f9f8ea75d327e663, type: 3}
   hideCountLabel: 0
+  cardCover: {fileID: 0}
 --- !u!1 &8483521907351972146
 GameObject:
   m_ObjectHideFlags: 0
