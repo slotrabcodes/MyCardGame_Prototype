@@ -56,8 +56,6 @@ public class CardDisplay : MonoBehaviour
     {
         inspectManager = FindObjectOfType<InspectManager>();
 
-        Debug.Log("Start im CardDisplay, InspectManager: " + inspectManager);
-
         if (cardData != null) UpdateCardUI();
 
         // Check, ob wir in der Collection sind
@@ -266,8 +264,6 @@ public class CardDisplay : MonoBehaviour
             {
                 cardCover.SetActive(false);
                 Debug.Log("CardCover deaktiviert.");
-                InventoryManager.Instance.AddCardToCollection(cardData);
-                InventoryManager.Instance.SaveGame(); // Speichern nach dem Hinzufügen der Karte
             }
             else           
             {

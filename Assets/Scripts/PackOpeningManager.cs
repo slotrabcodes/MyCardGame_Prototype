@@ -72,6 +72,10 @@ public class PackOpeningManager : MonoBehaviour
                 slot.UpdateCardUI();
                 slot.SetOwnedStatus(1);
 
+                InventoryManager.Instance.AddCardToCollection(randomCard);
+                Debug.Log("Card added to collection: " + randomCard.cardName);
+                InventoryManager.Instance.SaveGame();
+
                 // NEU: Stelle sicher, dass das Cover aktiv ist, bevor der Slot gezeigt wird
                 if (slot.cardCover != null)
                 {
@@ -98,5 +102,30 @@ public class PackOpeningManager : MonoBehaviour
         if (matchingCards.Count == 0) matchingCards = allCards.FindAll(c => c.rarity == Rarity.Common);
 
         return matchingCards[Random.Range(0, matchingCards.Count)];
+    }
+
+    public void CloseCardPack()
+    {
+        bool allCardsRevealed = true;
+
+        foreach (CardDisplay slot in cardSlots)
+        {
+            // Wenn auch nur eine Karte noch ein aktives Cover hat...
+            if (slot.cardCover != null && slot.cardCover.activeSelf)
+            {
+                allCardsRevealed = false;
+                break; // Wir müssen nicht weitersuchen
+            }
+        }
+
+        // Nur wenn der Check wahr geblieben ist, schließen wir
+        if (allCardsRevealed)
+        {
+            openingPanel.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Es sind noch Karten verdeckt!");
+        }
     }
 }
